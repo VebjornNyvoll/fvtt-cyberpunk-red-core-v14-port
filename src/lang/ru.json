@@ -1186,7 +1186,6 @@
   "CPR.rolls.suppressiveFire": "Огонь на подавление",
   "CPR.settings.theme.title": "Тема",
   "CPR.settings.theme.hint": "Выбери тему CSS для системы.",
-  "CPR.settings.theme.name.default": "По умолчанию",
   "CPR.settings.theme.name.darkmode": "Тёмный режим",
   "CPR.settings.compendiumMenu.button": "Настроить библиотеки",
   "CPR.settings.compendiumMenu.desc": "Чтобы использовать свои собственные библиотеки для автоматизации системы, они должны быть названы и структурированы особым образом. Нажми на знак вопроса, чтобы посмотреть документацию.",
