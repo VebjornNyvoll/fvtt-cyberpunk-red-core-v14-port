@@ -1,0 +1,40 @@
+/* Diwako CPR additions, ported into the core system. */
+.item-piles-even-color:nth-child(even) {
+  background-color: var(--cpr-background-row-even, var(--item-piles-even-color)) !important;
+}
+
+.item-piles-even-color:nth-child(odd) {
+  background-color: var(--cpr-background-row-odd, var(--item-piles-odd-color)) !important;
+}
+
+.item-piles-child-even-color > * {
+  background-color: var(--cpr-background-row-even, var(--item-piles-even-color)) !important;
+}
+
+.item-piles-child-odd-color > * {
+  background-color: var(--cpr-background-row-odd, var(--item-piles-odd-color)) !important;
+}
+
+.item.active.underscore {
+  border-bottom-color: var(--cpr-background-border, rgba(125, 0, 0, 0.5)) !important;
+}
+
+.item-piles-config-container p {
+  color: var(--cpr-text-normal, var(--color-text-dark-secondary)) !important;
+}
+
+.item-piles-disabled {
+  background-color: var(--cpr-text-icon-dimmed, var(--item-piles-minor-inactive)) !important;
+}
+
+.fg-red {
+  color: var(--cpr-color-red, #b90202);
+}
+
+.fg-green {
+  color: var(--cpr-text-chat-success, #609040);
+}
+
+.cpr-additions-sounds-menu .diw-audiopath {
+  width: 100%;
+}
