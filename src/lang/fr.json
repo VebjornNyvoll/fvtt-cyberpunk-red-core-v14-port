@@ -1186,7 +1186,6 @@
   "CPR.rolls.suppressiveFire": "Tir de suppression",
   "CPR.settings.theme.title": "Thème",
   "CPR.settings.theme.hint": "Sélectionnez le thème CSS à utiliser pour le système",
-  "CPR.settings.theme.name.default": "Par défaut",
   "CPR.settings.theme.name.darkmode": "Mode Sombre",
   "CPR.settings.compendiumMenu.button": "Configurer Compendium",
   "CPR.settings.compendiumMenu.desc": "L'utilisation de votre propre compendium pour les automatisations système nécessite qu'ils utilisent un nom et une structure spécifiques. Cliquez sur les points d'interrogation pour voir la documentation.",

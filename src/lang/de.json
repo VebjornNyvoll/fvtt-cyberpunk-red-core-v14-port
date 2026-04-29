@@ -1186,7 +1186,6 @@
   "CPR.rolls.suppressiveFire": "Unterdrückungsfeuer",
   "CPR.settings.theme.title": "Erscheinungsbild",
   "CPR.settings.theme.hint": "Wähle das CSS-Erscheinungsbild für das System",
-  "CPR.settings.theme.name.default": "Standard",
   "CPR.settings.theme.name.darkmode": "Dunkelmodus",
   "CPR.settings.compendiumMenu.button": "Kompendia konfigurieren",
   "CPR.settings.compendiumMenu.desc": "Um deine eigenen Kompendia für Systemautomatisierungen nutzen zu können, müssen diese eine spezifische Benennung und Struktur verwenden. Klick auf das Fragezeichen, um die Dokumentation zu sehen.",
