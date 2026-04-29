@@ -1,4 +1,19 @@
-form {
+form.actor-sheet,
+form.blackice-sheet,
+form.container-sheet,
+form.demon-sheet,
+form.dialog-sheet,
+form.item-sheet,
+form.mook-sheet,
+form.cpr-migration,
+.actor-sheet form,
+.blackice-sheet form,
+.container-sheet form,
+.demon-sheet form,
+.dialog-sheet form,
+.item-sheet form,
+.mook-sheet form,
+.cpr-migration form {
   .notes,
   .hint {
     color: var(--cpr-text-foundry-hint) !important;
@@ -228,14 +243,26 @@ optgroup {
   background: var(--cpr-background-foundry-input);
 }
 
-input::placeholder {
+.actor-sheet input::placeholder,
+.blackice-sheet input::placeholder,
+.container-sheet input::placeholder,
+.demon-sheet input::placeholder,
+.dialog-sheet input::placeholder,
+.item-sheet input::placeholder,
+.mook-sheet input::placeholder,
+.cpr-migration input::placeholder,
+.token-config input::placeholder,
+.prototype-token-config input::placeholder,
+#prototype-token-overrides input::placeholder {
   color: var(--cpr-text-normal);
 }
 
-.header-search {
-  input {
-    background: var(--cpr-background-foundry-input) !important;
-  }
+.directory .directory-header search input,
+.directory .directory-header .header-search input,
+.app.sidebar-tab.directory .directory-header .header-search input,
+.app.sidebar-popout .directory .directory-header .header-search input {
+  color: var(--cpr-text-foundry-input);
+  background: var(--cpr-background-foundry-input) !important;
 }
 
 #settings-config,
@@ -244,12 +271,9 @@ input::placeholder {
 .token-config,
 .prototype-token-config,
 #prototype-token-overrides,
-.application.standard-form,
-.application .standard-form,
-.application .form-footer,
-.application .controls-dropdown,
 .directory.sidebar-tab,
-.sidebar-tab,
+.app.sidebar-tab.directory,
+.app.sidebar-popout .directory,
 .combat-sidebar {
   --color-text-emphatic: var(--cpr-text-normal);
   --color-text-primary: var(--cpr-text-normal);
@@ -265,7 +289,7 @@ input::placeholder {
   --sidebar-background: var(--cpr-background-window);
   --sidebar-separator: var(--cpr-background-border);
   --sidebar-entry-hover-bg: var(--cpr-background-row-even);
-  --sidebar-folder-color: var(--cpr-text-normal);
+  --sidebar-folder-color: #313b42;
   --entry-hover-bg: var(--cpr-background-row-even);
   --entry-active-bg: var(--cpr-background-tab-active);
   --active-input-bg-color: var(--cpr-background-foundry-input);
@@ -302,6 +326,148 @@ input::placeholder {
   }
 }
 
+.token-config,
+.prototype-token-config,
+#prototype-token-overrides {
+  --background: var(--cpr-background-window);
+  --color-header-background: var(--cpr-background-header);
+  --color-border: var(--cpr-background-border);
+  --color-tabs-border: var(--cpr-background-border);
+  --color-text-emphatic: var(--cpr-text-normal);
+  --color-text-primary: var(--cpr-text-normal);
+  --color-text-secondary: var(--cpr-text-foundry-hint);
+  --color-text-subtle: var(--cpr-text-foundry-hint);
+  --color-form-label: var(--cpr-text-normal);
+  --color-form-label-hover: var(--cpr-text-foundry-hover);
+  --color-form-hint: var(--cpr-text-foundry-hint);
+  --color-form-hint-hover: var(--cpr-text-foundry-hover);
+  --input-background-color: var(--cpr-background-foundry-input);
+  --input-border-color: var(--cpr-background-dialog-border);
+  --input-text-color: var(--cpr-text-foundry-input);
+  --input-placeholder-color: var(--cpr-text-foundry-hint);
+  --input-focus-outline-color: var(--cpr-background-dialog-border);
+  --button-background-color: var(--cpr-background-editor-button);
+  --button-border-color: var(--cpr-background-dialog-border);
+  --button-text-color: var(--cpr-text-foundry-input);
+  --button-hover-background-color: var(--cpr-background-editor-button-hover);
+  --button-hover-border-color: var(--cpr-color-red);
+  --button-hover-text-color: var(--cpr-text-foundry-input);
+  --checkbox-checked-color: var(--cpr-color-red);
+  --checkbox-background-color: var(--cpr-background-foundry-input);
+  --checkbox-checkmark-color: var(--cpr-text-foundry-input);
+
+  .window-content.standard-form,
+  .window-content > .standard-form,
+  form.standard-form,
+  .standard-form {
+    color: var(--cpr-text-normal);
+    background: var(--cpr-background-window);
+  }
+
+  fieldset,
+  .form-group,
+  .form-fields,
+  .bar-data,
+  .detection-mode {
+    color: var(--cpr-text-normal);
+    background: color-mix(in srgb, var(--cpr-background-window) 86%, var(--cpr-background-box));
+    border-color: var(--cpr-background-dialog-border);
+  }
+
+  fieldset {
+    box-shadow: inset 0 0 0 0.063rem rgb(255 255 255 / 4%);
+  }
+
+  fieldset legend,
+  .form-group > label,
+  .form-group > span.label,
+  .form-fields > label,
+  .form-fields > span.label {
+    color: var(--cpr-text-normal) !important;
+    text-shadow: 0 0.063rem 0.125rem var(--cpr-color-black);
+  }
+
+  .tabs,
+  nav.tabs,
+  .sheet-tabs {
+    color: var(--cpr-color-red);
+    background: var(--cpr-background-window);
+    border-bottom: 0.063rem solid var(--cpr-background-dialog-border);
+
+    [data-tab],
+    .item {
+      color: var(--cpr-color-red);
+      text-shadow: none;
+    }
+
+    [data-tab].active,
+    .item.active {
+      color: var(--cpr-text-tab-normal);
+      background: var(--cpr-background-tab-active);
+      border-color: var(--cpr-background-dialog-border);
+    }
+  }
+
+  .form-group {
+    > label,
+    > span.label,
+    .form-fields > label,
+    .form-fields > span.label {
+      color: var(--color-form-label) !important;
+    }
+  }
+
+  input,
+  select,
+  textarea,
+  label.icon:has(> input) {
+    color: var(--input-text-color);
+    background: var(--input-background-color);
+    border-color: var(--input-border-color);
+  }
+
+  input[type="number"],
+  input[type="text"],
+  select {
+    box-shadow: inset 0 0 0 0.063rem rgb(255 255 255 / 6%);
+  }
+
+  .bar-data .sep {
+    color: var(--cpr-color-red);
+    text-shadow: 0 0 0.25rem var(--cpr-color-black);
+  }
+
+  select option,
+  select optgroup {
+    color: var(--input-text-color);
+    background: var(--input-background-color);
+  }
+
+  .form-footer {
+    background: transparent;
+
+    button,
+    a.button {
+      color: var(--button-text-color);
+      background: var(--button-background-color);
+      border-color: var(--button-border-color);
+
+      &:hover {
+        color: var(--button-hover-text-color);
+        background: var(--button-hover-background-color);
+        border-color: var(--button-hover-border-color);
+      }
+
+      &:disabled {
+        color: var(--cpr-text-foundry-hint);
+        background: var(--cpr-background-editor-button-hover);
+        border-color: var(--cpr-background-dialog-border);
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
 .directory .directory-header .header-search input,
 .app.sidebar-tab.directory .directory-header .header-search input,
 .app.sidebar-popout .directory .directory-header .header-search input,
@@ -314,14 +480,133 @@ input::placeholder {
   background: var(--cpr-background-foundry-input);
 }
 
-body.game .app h1,
-body.game .app h2,
-body.game .app h3,
-body.game .app h4,
-.application h1,
-.application h2,
-.application h3,
-.application h4 {
+.directory.sidebar-tab li.folder > .folder-header,
+.app.sidebar-tab.directory li.folder > .folder-header,
+.app.sidebar-popout .directory li.folder > .folder-header {
+  color: var(--cpr-text-normal);
+  background: var(--sidebar-folder-color);
+  border: 0.063rem solid var(--cpr-background-dialog-border);
+  text-shadow: 0 0.063rem 0.188rem var(--cpr-color-black);
+}
+
+.directory.sidebar-tab li.folder > .folder-header > i,
+.directory.sidebar-tab li.folder > .folder-header .folder-name,
+.directory.sidebar-tab li.folder > .folder-header .create-button,
+.app.sidebar-tab.directory li.folder > .folder-header > i,
+.app.sidebar-tab.directory li.folder > .folder-header .folder-name,
+.app.sidebar-tab.directory li.folder > .folder-header .create-button,
+.app.sidebar-popout .directory li.folder > .folder-header > i,
+.app.sidebar-popout .directory li.folder > .folder-header .folder-name,
+.app.sidebar-popout .directory li.folder > .folder-header .create-button {
+  color: var(--cpr-text-normal);
+}
+
+.directory.sidebar-tab li.folder > .folder-header .create-button.icon-plus::after,
+.app.sidebar-tab.directory li.folder > .folder-header .create-button.icon-plus::after,
+.app.sidebar-popout .directory li.folder > .folder-header .create-button.icon-plus::after {
+  color: var(--cpr-text-tab-normal);
+  background: var(--cpr-background-header);
+  border-color: var(--cpr-background-dialog-border);
+}
+
+#settings-config .settings-list,
+#settings-config .settings-list .setting,
+#settings-config .tab,
+#module-management .package-list,
+#module-management .package-list .package,
+#module-management .package-list li.package,
+#module-management .package-list .package-overview,
+#module-management .package-list .package-description,
+#module-management .package-list .package-metadata {
+  color: var(--cpr-text-normal);
+  background: var(--cpr-background-box);
+}
+
+#settings-config .settings-list .setting:hover,
+#module-management .package-list .package:hover,
+#module-management .package-list li.package:hover,
+#module-management .package-list .package.active,
+#module-management .package-list li.package.active {
+  color: var(--cpr-text-normal);
+  background: var(--cpr-background-row-even);
+}
+
+#module-management .package-list .package-title,
+#module-management .package-list .package-overview .title,
+#module-management .package-list .package-overview .title-group .title,
+#module-management .package-list .package-overview .title-group .package-title,
+#module-management .package-list .package-overview .title-group .package-name,
+#module-management .package-list .package-name,
+#settings-config .settings-list .setting-name,
+#settings-config .settings-list .form-group > label,
+#settings-config .settings-list .form-group > span.label {
+  color: var(--cpr-text-normal) !important;
+}
+
+#module-management .package-list .package-overview .title-group .subtitle,
+#module-management .package-list .package-description,
+#module-management .package-list .package-metadata,
+#settings-config .settings-list h2,
+#settings-config .settings-list .hint {
+  color: var(--cpr-text-foundry-hint) !important;
+}
+
+.actor-sheet h1,
+.actor-sheet h2,
+.actor-sheet h3,
+.actor-sheet h4,
+.blackice-sheet h1,
+.blackice-sheet h2,
+.blackice-sheet h3,
+.blackice-sheet h4,
+.container-sheet h1,
+.container-sheet h2,
+.container-sheet h3,
+.container-sheet h4,
+.demon-sheet h1,
+.demon-sheet h2,
+.demon-sheet h3,
+.demon-sheet h4,
+.dialog-sheet h1,
+.dialog-sheet h2,
+.dialog-sheet h3,
+.dialog-sheet h4,
+.item-sheet h1,
+.item-sheet h2,
+.item-sheet h3,
+.item-sheet h4,
+.mook-sheet h1,
+.mook-sheet h2,
+.mook-sheet h3,
+.mook-sheet h4,
+.cpr-migration h1,
+.cpr-migration h2,
+.cpr-migration h3,
+.cpr-migration h4,
+#settings-config h1,
+#settings-config h2,
+#settings-config h3,
+#settings-config h4,
+#module-management h1,
+#module-management h2,
+#module-management h3,
+#module-management h4,
+#keybindings h1,
+#keybindings h2,
+#keybindings h3,
+#keybindings h4,
+.token-config h1,
+.token-config h2,
+.token-config h3,
+.token-config h4,
+.prototype-token-config h1,
+.prototype-token-config h2,
+.prototype-token-config h3,
+.prototype-token-config h4,
+#prototype-token-overrides h1,
+#prototype-token-overrides h2,
+#prototype-token-overrides h3,
+#prototype-token-overrides h4 {
   color: var(--cpr-text-normal);
   border-color: var(--cpr-color-red);
 }
@@ -339,10 +624,68 @@ body.game .app h4,
   background: var(--cpr-background-foundry-input);
 }
 
-.directory .directory-item,
+.directory:not(.compendium-sidebar):not(.compendium-directory) .directory-item,
+.directory .directory-item.document-match,
 .combat-sidebar .combat-tracker .combatant {
   background: var(--cpr-background-box);
   color: var(--cpr-text-normal);
+}
+
+.compendium-sidebar,
+.compendium-directory {
+  --sidebar-background: var(--cpr-background-window);
+  --sidebar-separator: 1px solid var(--cpr-background-dialog-border);
+  color: var(--cpr-text-tab-normal);
+}
+
+.compendium-sidebar .compendium,
+.compendium-sidebar .directory-item.entry.compendium {
+  color: var(--cpr-text-tab-normal);
+  background: var(--cpr-background-header);
+
+  &::after {
+    background: rgb(0 0 0 / 55%);
+  }
+
+  .compendium-name,
+  .compendium-name strong,
+  .compendium-name i,
+  .status-icons,
+  .status-icons i,
+  .compendium-footer {
+    color: var(--cpr-text-tab-normal);
+    text-shadow: 0 0 0.25rem var(--cpr-color-black);
+  }
+
+  &:hover {
+    color: var(--cpr-text-tab-normal);
+
+    &::after {
+      background: rgb(0 0 0 / 35%);
+    }
+  }
+}
+
+.compendium-directory {
+  .header-banner,
+  .header-banner .compendium-name,
+  .header-banner .compendium-name strong {
+    color: var(--cpr-text-tab-normal);
+    text-shadow: 0 0 0.25rem var(--cpr-color-black);
+  }
+
+  .directory-list .directory-item.entry {
+    color: var(--cpr-text-normal);
+    background: var(--cpr-background-box);
+    border-top: 0.063rem solid var(--cpr-background-dialog-border);
+
+    > i,
+    .entry-name,
+    .document-name,
+    .name {
+      color: var(--cpr-text-normal);
+    }
+  }
 }
 
 .combat-sidebar .combat-tracker .combatant.active {
@@ -376,22 +719,223 @@ body.game .app h4,
 
 .placeable-hud,
 #token-hud {
-  --control-bg-color: var(--cpr-background-foundry-input);
+  --control-bg-color: rgb(13 11 12 / 88%);
   --control-hover-bg-color: var(--cpr-background-editor-button-hover);
   --control-border-color: var(--cpr-background-dialog-border);
   --control-hover-border-color: var(--cpr-color-red);
-  --control-icon-color: var(--cpr-text-foundry-input);
-  --control-hover-icon-color: var(--cpr-text-foundry-input);
+  --control-icon-color: var(--cpr-color-white);
+  --control-hover-icon-color: var(--cpr-color-white);
   --control-active-bg-color: var(--cpr-background-tab-active);
   --control-active-border-color: var(--cpr-color-red);
-  --control-active-icon-color: var(--cpr-text-foundry-input);
+  --control-active-icon-color: var(--cpr-color-white);
+  --control-icon-filter: none;
+  --hud-icon-filter: none;
+
+  .control-icon,
+  input[type="text"] {
+    color: var(--control-icon-color);
+    background: var(--control-bg-color);
+    border-color: var(--control-border-color);
+  }
+
+  .control-icon img,
+  .palette-list-entry img,
+  .status-effects .effect-control,
+  #measurement .waypoint-label .img {
+    opacity: 0.9;
+    filter: var(--control-icon-filter);
+  }
+
+  .control-icon:hover img,
+  .palette-list-entry:hover img,
+  .status-effects .effect-control:hover,
+  .status-effects .effect-control.active {
+    opacity: 1;
+  }
+}
+
+#sidebar-content #chat.chat-sidebar:not(.sidebar-popout) {
+  background: rgb(13 11 12 / 28%);
+  box-shadow: inset 0 0 0 0.063rem rgb(255 255 255 / 8%);
+  backdrop-filter: blur(0.063rem);
+}
+
+#sidebar-content #chat.chat-sidebar .chat-scroll {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+#sidebar-content #chat.chat-sidebar .chat-log {
+  flex: none;
+}
+
+#chat-notifications {
+  row-gap: 0;
+
+  .overflow {
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    padding-bottom: 1cm;
+    scroll-padding-bottom: 1cm;
+  }
+
+  .chat-log {
+    padding-bottom: 0;
+    scroll-padding-bottom: 0;
+  }
+
+  .chat-message {
+    position: relative;
+    z-index: 1;
+  }
+
+  .chat-message:last-child {
+    margin-bottom: 0;
+  }
+}
+
+html[data-cpr-theme="darkmode"] {
+  .window-app.dialog-sheet,
+  .application.dialog-sheet,
+  .app.dialog-sheet {
+    --color-text-emphatic: var(--cpr-darkmode-text-main);
+    --color-text-primary: var(--cpr-darkmode-text-main);
+    --color-text-secondary: #cdd7df;
+    --color-form-label: var(--cpr-darkmode-text-main);
+    --color-form-hint: #cdd7df;
+    color: var(--cpr-darkmode-text-main);
+  }
+
+  form.dialog-sheet {
+    color: var(--cpr-darkmode-text-main);
+    background: #151b1f;
+
+    .dialog-header,
+    .dialog-grid,
+    .dialog-footer,
+    .text-normal,
+    .text-semi,
+    label {
+      color: var(--cpr-darkmode-text-main);
+    }
+
+    hr {
+      background-image: linear-gradient(to right, #52606d, #d5dde5, #52606d);
+    }
+
+    .dialog-list {
+      color: var(--cpr-darkmode-text-main);
+      background: #101518;
+      border-color: #8fa1b2;
+      box-shadow: 0 0 0 0.063rem rgb(255 255 255 / 8%);
+
+      li:nth-child(odd) {
+        background-color: #202a31;
+      }
+
+      li:nth-child(even) {
+        background-color: #303a42;
+      }
+
+      .dialog-item.dialog-item-header {
+        color: var(--cpr-color-white);
+        background-color: #0d0b0c !important;
+      }
+
+      .dialog-item.dialog-item-footer {
+        border-color: #8fa1b2;
+      }
+    }
+
+    .dialog-item-name,
+    .dialog-item-input,
+    .situational-mod-name,
+    .situational-mod-value {
+      color: var(--cpr-darkmode-text-main);
+    }
+
+    .dialog-item-input input,
+    .dialog-item-input select {
+      color: var(--cpr-color-white);
+      background: #2d363d;
+      border: 0.063rem solid #9fb0bf;
+      box-shadow: inset 0 0 0 0.063rem rgb(255 255 255 / 8%);
+    }
+
+    .dialog-item-input input::placeholder {
+      color: #cdd7df;
+      opacity: 0.9;
+    }
+
+    .situational-mods li,
+    .mod-selected {
+      color: var(--cpr-darkmode-text-main);
+      background-color: #303a42;
+      border-color: #8fa1b2;
+    }
+
+    .situational-mods li.mod-selected,
+    .dialog-list .mod-selected {
+      color: var(--cpr-color-white);
+      background-color: #52606d;
+      border-color: #cdd7df;
+    }
+
+    .total-mods {
+      color: var(--cpr-color-white);
+      background-color: #0f1418 !important;
+      border-color: #8fa1b2;
+
+      .total-mod-value {
+        color: var(--cpr-color-white);
+        background: #303a42;
+        border: 0.063rem solid #8fa1b2;
+      }
+    }
+
+    .cpr-dialog-button {
+      color: var(--cpr-color-white);
+      background: #202a31;
+      border-color: #8fa1b2;
+    }
+
+    .cpr-dialog-button:hover,
+    .cpr-dialog-button:focus {
+      color: var(--cpr-color-white);
+      background: #303a42;
+      border-color: var(--cpr-color-red);
+      box-shadow: 0 0 0.375rem rgb(198 40 40 / 55%);
+    }
+  }
+
+  .dialog.dialog-sheet .dialog-buttons button,
+  .dialog .dialog-buttons button {
+    color: var(--cpr-color-white);
+    background: #202a31;
+    border-color: #8fa1b2;
+  }
+
+  .dialog.dialog-sheet .dialog-buttons button:hover,
+  .dialog .dialog-buttons button:hover,
+  .dialog.dialog-sheet .dialog-buttons button.default,
+  .dialog .dialog-buttons button.default {
+    color: var(--cpr-color-white);
+    background: #303a42;
+    border-color: var(--cpr-color-red);
+  }
 }
 
 /****************************
  * Application V2 Overrides *
  ****************************/
 
-html[data-cpr-theme="default"] .application {
+[data-cpr-theme="darkmode"] #settings-config,
+[data-cpr-theme="darkmode"] #module-management,
+[data-cpr-theme="darkmode"] #keybindings,
+[data-cpr-theme="darkmode"] .token-config,
+[data-cpr-theme="darkmode"] .prototype-token-config,
+[data-cpr-theme="darkmode"] #prototype-token-overrides {
   a {
     color: var(--cpr-color-red);
   }
@@ -404,23 +948,6 @@ html[data-cpr-theme="default"] .application {
 
   input[type="checkbox"]:checked::before {
     color: var(--cpr-color-faded-black);
-  }
-}
-
-/*
- * As of V12 Foundry has it's own dark/light mode based on the browser. In cases
- * where the user in in dark mode and the system is in light mode we want to correct
- * the styling for Foundry specific menus.
- */
-html[data-cpr-theme="default"] body.theme-dark {
-  form.region-config {
-    label {
-      color: #eaeaea !important;
-    }
-
-    .hint {
-      color: #c0c0c0 !important;
-    }
   }
 }
 
