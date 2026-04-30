@@ -1,0 +1,49 @@
+name: Release Creation
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      # Gulp reads SYSTEM_VERSION/REPO_URL/ZIP_FILE env vars to bake correct
+      # version + URLs into dist/system.json. CI=true also bypasses the local
+      # foundryconfig.json deploy-path (which is gitignored anyway in CI).
+      - name: Build system bundle
+        env:
+          CI: 'true'
+          SYSTEM_VERSION: ${{ github.event.release.tag_name }}
+          REPO_URL: https://github.com/${{ github.repository }}
+          ZIP_FILE: cyberpunk-red-core.zip
+        run: npm run build
+
+      # Zip the built dist/ into cyberpunk-red-core.zip with system.json at the
+      # archive root - matches the URL gulp embedded in dist/system.json.
+      - name: Zip system bundle
+        run: cd dist && zip -r ../cyberpunk-red-core.zip .
+
+      - name: Attach system.json and zip to release
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          name: ${{ github.event.release.name }}
+          draft: ${{ github.event.release.unpublished }}
+          prerelease: ${{ github.event.release.prerelease }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: './dist/system.json,./cyberpunk-red-core.zip'
+          tag: ${{ github.event.release.tag_name }}
+          body: ${{ github.event.release.body }}
