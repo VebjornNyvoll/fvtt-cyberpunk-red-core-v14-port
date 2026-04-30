@@ -1,7 +1,6 @@
 import LOGGER from "../utils/cpr-logger.js";
 import { CPRRoll, CPRDamageRoll, CPRInitiative } from "../rolls/cpr-rolls.js";
 import SystemUtils from "../utils/cpr-systemUtils.js";
-import CPRDialog from "../dialog/cpr-dialog-application.js";
 
 const { renderTemplate } = foundry.applications.handlebars;
 
@@ -451,6 +450,48 @@ export default class CPRChat {
   }
 
   /**
+   * Show the damage application prompt using Foundry's v14 DialogV2 API.
+   * This avoids constructing the deprecated V1 FormApplication-based CPRDialog for this chat workflow.
+   *
+   * @param {object} dialogData - Data used to render and update the damage application form.
+   * @param {object} dialogOptions - Dialog options including title and template path.
+   * @returns {Promise<object|undefined>} - Updated dialog data, or undefined if the dialog was cancelled/closed.
+   */
+  static async _showDamageApplicationDialog(dialogData, dialogOptions) {
+    const dialogElement = foundry.utils.parseHTML(
+      await renderTemplate(dialogOptions.template, dialogData)
+    );
+    dialogElement.querySelector(".dialog-footer")?.remove();
+
+    return foundry.applications.api.DialogV2.wait({
+      window: { title: dialogOptions.title },
+      content: dialogElement.innerHTML,
+      buttons: [
+        {
+          action: "confirm",
+          icon: "fas fa-check",
+          label: SystemUtils.Localize("CPR.dialog.common.confirm"),
+          default: true,
+          callback: (_event, button) => {
+            const formData = new foundry.applications.ux.FormDataExtended(
+              button.form
+            ).object;
+            return foundry.utils.mergeObject(dialogData, formData, {
+              inplace: false,
+            });
+          },
+        },
+        {
+          action: "cancel",
+          icon: "fas fa-xmark",
+          label: SystemUtils.Localize("CPR.dialog.common.cancel"),
+          callback: () => undefined,
+        },
+      ],
+    });
+  }
+
+  /**
    * Handle the damage application from the chat message. It is called from the chatListeners.
    *
    * @param {*} event - event data from the chat message
@@ -538,7 +579,7 @@ export default class CPRChat {
       // eslint-disable-next-line prefer-const
       if (!event.ctrlKey) {
         // Show "Damage Application" prompt.
-        dialogData = await CPRDialog.showDialog(
+        dialogData = await this._showDamageApplicationDialog(
           dialogData,
           dialogOptions
         ).catch((err) => LOGGER.debug(err));
@@ -590,7 +631,7 @@ export default class CPRChat {
 
           // Show "Damage Application" prompt.
           // eslint-disable-next-line no-await-in-loop
-          dialogData = await CPRDialog.showDialog(
+          dialogData = await this._showDamageApplicationDialog(
             dialogData,
             dialogOptions
           ).catch((err) => LOGGER.debug(err));
