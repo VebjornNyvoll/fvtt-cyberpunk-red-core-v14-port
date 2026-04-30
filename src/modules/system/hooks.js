@@ -18,7 +18,6 @@ const hooksImports = [
   "actor/sync-tracked-armor.js",
   "actor/update-role-from-item.js",
   "actor/update-role-on-item-delete.js",
-  "additions/register-additions.js",
   "chat/add-glyphs.js",
   "chat/hide-blind-rolls.js",
   "chat/parse-red-command.js",
