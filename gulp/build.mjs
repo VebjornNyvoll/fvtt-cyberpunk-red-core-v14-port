@@ -91,13 +91,14 @@ async function buildManifest() {
     const system = JSON.parse(systemRaw);
     // If we're in CI use $VERSION as the version, else use a dummy version
     const version = SYSTEM_VERSION;
-    // Construct some URLs
-    const repoUrl = process.env.CI
-      ? process.env.REPO_URL
-      : "http://example.com";
-    const zipFile = process.env.CI ? process.env.ZIP_FILE : "cpr.zip";
-    const manifestUrl = `${repoUrl}/latest/${SYSTEM_FILE}`;
-    const downloadUrl = `${repoUrl}/${version}/${zipFile}`;
+    // Construct some URLs - GitHub release asset convention.
+    // Defaults work for local dev; CI overrides via REPO_URL/ZIP_FILE/SYSTEM_VERSION env vars.
+    const repoUrl =
+      process.env.REPO_URL ||
+      "https://github.com/Jesperhh01/fvtt-cyberpunk-red-core-v14-port";
+    const zipFile = process.env.ZIP_FILE || "cyberpunk-red-core.zip";
+    const manifestUrl = `${repoUrl}/releases/latest/download/${SYSTEM_FILE}`;
+    const downloadUrl = `${repoUrl}/releases/download/${version}/${zipFile}`;
 
     system.version = version;
     system.manifest = manifestUrl;
