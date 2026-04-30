@@ -1,9 +1,6 @@
 <div class="item-settings-tab">
   <div class="item-settings-section">
-    <div class="tab item-settings-grid"
-         data-group="primary"
-         data-tab="item-settings">
-      <ol class="items-list">
+    <ol class="items-list">
         {{!-- Item Name --}}
         {{> "systems/cyberpunk-red-core/templates/item/cpr-item-name.hbs" this}}
         {{!-- Settings common to all items --}}
@@ -53,7 +50,6 @@
         {{/each}}
         {{!-- Settings specific to the item type --}}
         {{> (cprGeneratePartial "systems/cyberpunk-red-core/templates/item/settings/cpr-VAR.hbs" item.type) this}}
-      </ol>
-    </div>
+    </ol>
   </div>
 </div>

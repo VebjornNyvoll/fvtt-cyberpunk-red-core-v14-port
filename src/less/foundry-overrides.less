@@ -618,10 +618,13 @@ optgroup {
 
 #sidebar-tabs > menu .ui-control[data-action="tab"],
 .combat-sidebar .combat-tracker .inline-control,
-.combat-sidebar .combat-tracker .token-initiative button,
 .combat-sidebar button.combat-control-lg {
   color: var(--cpr-text-foundry-input);
   background: var(--cpr-background-foundry-input);
+}
+
+.combat-sidebar .combat-tracker .token-initiative button {
+  color: var(--cpr-text-foundry-input);
 }
 
 .directory:not(.compendium-sidebar):not(.compendium-directory) .directory-item,
@@ -758,15 +761,6 @@ optgroup {
   background: rgb(13 11 12 / 28%);
   box-shadow: inset 0 0 0 0.063rem rgb(255 255 255 / 8%);
   backdrop-filter: blur(0.063rem);
-}
-
-#sidebar-content #chat.chat-sidebar .chat-scroll {
-  display: flex;
-  flex-direction: column-reverse;
-}
-
-#sidebar-content #chat.chat-sidebar .chat-log {
-  flex: none;
 }
 
 #chat-notifications {
