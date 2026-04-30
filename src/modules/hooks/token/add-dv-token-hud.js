@@ -15,8 +15,9 @@ const AddDvTokenHud = () => {
   Hooks.on("renderTokenHUD", async (hud, html, token) => {
     const dvHudTemplate = `systems/${game.system.id}/templates/hud/dv.hbs`;
     const dvDisplay = await renderTemplate(dvHudTemplate, token.flags);
-    html.find("div.left").append(dvDisplay);
-    html.find(".dv-table-selector").click(() => {
+    const hudHtml = html.find ? html : $(html);
+    hudHtml.find("div.left").append(dvDisplay);
+    hudHtml.find(".dv-table-selector").click(() => {
       HudInterface.SetDvTable(token);
       hud.clear();
     });

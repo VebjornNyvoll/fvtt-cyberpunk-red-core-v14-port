@@ -46,17 +46,13 @@ const Attackable = function Attackable() {
    *
    * @returns updated actor data
    */
-  this.dischargeItem = function dischargeItem(cprRoll) {
+  this.dischargeItem = async function dischargeItem(cprRoll) {
     const discharged = this.bulletConsumption(cprRoll);
     LOGGER.debug(discharged);
     // don't go negative
-    this.system.magazine.value = Math.max(
-      this.system.magazine.value - discharged,
-      0
-    );
-    return this.actor.updateEmbeddedDocuments("Item", [
-      { _id: this.id, system: this.system },
-    ]);
+    const currentMagazineValue = Number(this.system.magazine.value) || 0;
+    const newMagazineValue = Math.max(currentMagazineValue - discharged, 0);
+    return this.update({ "system.magazine.value": newMagazineValue });
   };
 
   /**

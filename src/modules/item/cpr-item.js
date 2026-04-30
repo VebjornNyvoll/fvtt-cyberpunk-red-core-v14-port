@@ -369,7 +369,7 @@ export default class CPRItem extends Item {
    * @param {CPRRoll} cprRoll
    * @returns {CPRRoll}
    */
-  confirmRoll(cprRoll) {
+  async confirmRoll(cprRoll) {
     const itemType = this.type;
     const cprItemData = this.system;
     const localCprRoll = cprRoll;
@@ -378,9 +378,9 @@ export default class CPRItem extends Item {
     if (hasLoadableTemplate) {
       if (localCprRoll instanceof CPRRolls.CPRAttackRoll) {
         if (cprItemData.isRanged) {
-          this.dischargeItem(localCprRoll);
+          await this.dischargeItem(localCprRoll);
           const ammoType = this._getLoadedAmmoProp("type");
-          if (ammoType !== "undefined") {
+          if (ammoType !== undefined) {
             localCprRoll.rollCardExtraArgs.ammoType = ammoType;
           }
         }
