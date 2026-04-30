@@ -1,4 +1,5 @@
 {
+  "COMBATANT.InitiativeRoll": "Roll Initiative",
   "CPR.actorSheets.clearFilter": "Сбросить фильтр",
   "CPR.actorSheets.commonActions.changeAmmo": "Сменить боеприпасы",
   "CPR.actorSheets.commonActions.createNewItem": "Создать новый предмет на актёре",

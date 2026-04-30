@@ -1,4 +1,5 @@
 {
+  "COMBATANT.InitiativeRoll": "Roll Initiative",
   "CPR.actorSheets.clearFilter": "フィルタを削除する",
   "CPR.actorSheets.commonActions.changeAmmo": "弾薬を換える",
   "CPR.actorSheets.commonActions.createNewItem": "演者に新しいアイテムを作る",

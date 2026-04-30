@@ -1,4 +1,5 @@
 {
+  "COMBATANT.InitiativeRoll": "Roll Initiative",
   "CPR.actorSheets.clearFilter": "清除筛选",
   "CPR.actorSheets.commonActions.changeAmmo": "更换弹药",
   "CPR.actorSheets.commonActions.createNewItem": "新建角色物品",

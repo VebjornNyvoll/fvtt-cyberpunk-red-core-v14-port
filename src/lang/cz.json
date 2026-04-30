@@ -1,4 +1,5 @@
 {
+  "COMBATANT.InitiativeRoll": "Roll Initiative",
   "CPR.actorSheets.clearFilter": "Smazat filtr",
   "CPR.actorSheets.commonActions.changeAmmo": "Změnit Munici",
   "CPR.actorSheets.commonActions.createNewItem": "Vytvořit novou položku na postavě",

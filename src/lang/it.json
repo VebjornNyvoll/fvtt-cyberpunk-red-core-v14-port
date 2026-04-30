@@ -1,4 +1,5 @@
 {
+  "COMBATANT.InitiativeRoll": "Roll Initiative",
   "CPR.actorSheets.clearFilter": "Cancella filtro",
   "CPR.actorSheets.commonActions.changeAmmo": "Cambia Munizioni",
   "CPR.actorSheets.commonActions.createNewItem": "Crea un nuovo oggetto sul personaggio",
