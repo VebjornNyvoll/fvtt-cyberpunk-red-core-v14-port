@@ -112,4 +112,24 @@ export default class CPRCombat extends Combat {
       });
     }
   }
+
+  /**
+   * Vebjørn Modules: override nextTurn to emit cpr-combatTurnStart on advancement.
+   * Allows downstream modules (e.g. vebjorn-token-states) to react to the current
+   * combatant becoming active without parsing chat or polling combat state.
+   *
+   * @returns {Promise<Combat>} the combat document after turn advancement
+   */
+  async nextTurn() {
+    const result = await super.nextTurn();
+    if (this.combatant) {
+      Hooks.callAll("cpr-combatTurnStart", {
+        combat: this,
+        combatant: this.combatant,
+        round: this.round,
+        turn: this.turn,
+      });
+    }
+    return result;
+  }
 }
