@@ -192,6 +192,25 @@ export class CPRRoll {
       this.criticalRoll = this._critRoll.total;
     }
     this._computeResult();
+
+    // Vebjorn Modules: universal cpr-rollComplete emission. Fires for every
+    // roll path (actor sheet, TAH-CPR, programmatic API) since every roll
+    // ultimately calls this method. Detected rollType is best-effort:
+    //   - explicit `this.rollType` if set by the caller (sheet sets it)
+    //   - else inferred from the CPRRoll subclass via `_inferRollType`
+    try {
+      // eslint-disable-next-line no-use-before-define
+      const detectedRollType = this.rollType ?? _inferRollType(this);
+      Hooks.callAll("cpr-rollComplete", {
+        rollType: detectedRollType,
+        actor: this.actor ?? null,
+        item: this.item ?? null,
+        roll: this,
+        entityData: this.entityData ?? null,
+      });
+    } catch (e) {
+      LOGGER.error(`cpr-rollComplete emission failed: ${e?.message ?? e}`);
+    }
   }
 
   /**
@@ -901,3 +920,28 @@ export const rollTypes = {
   CYBERDECKPROGRAM: "cyberdeckProgram",
   FACEDOWN: "facedown",
 };
+
+/**
+ * Vebjorn Modules helper: infer the canonical rollType from a CPRRoll instance
+ * when `roll.rollType` was not explicitly set by the caller. Order matters —
+ * test most-specific subclasses first.
+ *
+ * Returns one of `rollTypes.*` values or "unknown".
+ */
+function _inferRollType(roll) {
+  if (roll instanceof CPRAimedAttackRoll) return rollTypes.AIMED;
+  if (roll instanceof CPRAutofireRoll) return rollTypes.AUTOFIRE;
+  if (roll instanceof CPRSuppressiveFireRoll) return rollTypes.SUPPRESSIVE;
+  if (roll instanceof CPRAttackRoll) return rollTypes.ATTACK;
+  if (roll instanceof CPRSkillRoll) return rollTypes.SKILL;
+  if (roll instanceof CPRStatRoll) return rollTypes.STAT;
+  if (roll instanceof CPRDamageRoll) return rollTypes.DAMAGE;
+  if (roll instanceof CPRDeathSaveRoll) return rollTypes.DEATHSAVE;
+  if (roll instanceof CPRInterfaceRoll) return rollTypes.INTERFACEABILITY;
+  if (roll instanceof CPRRoleRoll) return rollTypes.ROLEABILITY;
+  if (roll instanceof CPRHumanityLossRoll) return rollTypes.HUMANITY;
+  if (roll instanceof CPRFacedownRoll) return rollTypes.FACEDOWN;
+  if (roll instanceof CPRInitiative) return "initiative";
+  if (roll instanceof CPRTableRoll) return "table";
+  return rollTypes.BASE;
+}
