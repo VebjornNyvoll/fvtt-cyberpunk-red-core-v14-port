@@ -661,6 +661,10 @@ export default class CPRActorSheet extends ActorSheet {
     if (item) {
       cprRoll.entityData.item = item.id;
     }
+    // Vebjørn Modules: cpr-rollComplete hook is now emitted from CPRRoll.roll()
+    // itself (in cpr-rolls.js), so it fires for ALL roll paths — actor sheet,
+    // TAH-CPR's RollHandler, and any programmatic API caller. The previous
+    // sheet-only emission has been moved to the universal chokepoint.
     CPRChat.RenderRollCard(cprRoll);
 
     // save the location so subsequent damage rolls hit/show the same place
