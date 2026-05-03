@@ -410,30 +410,49 @@ export default class CPRItem extends Item {
    * @returns {CPRRoll} or null for invalid roll types
    */
   createRoll(type, actor, extraData = []) {
+    let cprRoll = null;
     switch (type) {
       case CPRRolls.rollTypes.SKILL: {
-        return this._createSkillRoll(actor);
+        cprRoll = this._createSkillRoll(actor);
+        break;
       }
       case CPRRolls.rollTypes.INTERFACEABILITY:
-        return this._createInterfaceRoll(actor, extraData);
+        cprRoll = this._createInterfaceRoll(actor, extraData);
+        break;
       case CPRRolls.rollTypes.ROLEABILITY: {
-        return this._createRoleRoll(type, actor, extraData);
+        cprRoll = this._createRoleRoll(type, actor, extraData);
+        break;
       }
       case CPRRolls.rollTypes.SUPPRESSIVE:
       case CPRRolls.rollTypes.AUTOFIRE:
       case CPRRolls.rollTypes.AIMED:
       case CPRRolls.rollTypes.ATTACK: {
-        return this._createAttackRoll(type, actor);
+        cprRoll = this._createAttackRoll(type, actor);
+        break;
       }
       case CPRRolls.rollTypes.DAMAGE: {
         const damageType = extraData.damageType ? extraData.damageType : type;
-        return this._createDamageRoll(damageType, actor);
+        cprRoll = this._createDamageRoll(damageType, actor);
+        break;
       }
       case CPRRolls.rollTypes.CYBERDECKPROGRAM: {
-        return this._createCyberdeckRoll(actor, extraData);
+        cprRoll = this._createCyberdeckRoll(actor, extraData);
+        break;
       }
       default:
     }
-    return null;
+    // Vebjorn Modules: decorate every CPRRoll with actor/item refs and a
+    // canonical rollType so downstream listeners (cpr-rollComplete in
+    // CPRRoll.roll()) get full context regardless of trigger path.
+    // Properties are non-enumerable to avoid breaking
+    // foundry.utils.mergeObject(this, dialogData) inside CPR roll dialogs.
+    if (cprRoll) {
+      try {
+        Object.defineProperty(cprRoll, "actor", { value: actor, configurable: true, enumerable: false, writable: true });
+        Object.defineProperty(cprRoll, "item", { value: this, configurable: true, enumerable: false, writable: true });
+        Object.defineProperty(cprRoll, "rollType", { value: type, configurable: true, enumerable: false, writable: true });
+      } catch (_e) { /* tolerate sealed objects */ }
+    }
+    return cprRoll;
   }
 }

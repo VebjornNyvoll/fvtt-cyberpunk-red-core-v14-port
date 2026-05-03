@@ -402,6 +402,8 @@ export default class CPRActor extends Actor {
    */
   _setWoundState() {
     const { derivedStats } = this.system;
+    // Vebjørn Modules: capture previous wound state for cpr-woundStateChanged hook
+    const previousState = derivedStats.currentWoundState;
     let newState = "invalidState";
     if (derivedStats.hp.value < 1) {
       newState = "mortallyWounded";
@@ -413,6 +415,17 @@ export default class CPRActor extends Actor {
       newState = "notWounded";
     }
     this.system.derivedStats.currentWoundState = newState;
+    // Vebjørn Modules: emit on transition. Skip the initial computation
+    // (previousState undefined) so we don't fire on world load / sheet open.
+    if (previousState !== undefined && previousState !== newState) {
+      Hooks.callAll("cpr-woundStateChanged", {
+        actor: this,
+        previousState,
+        newState,
+        hpValue: derivedStats.hp.value,
+        hpMax: derivedStats.hp.max,
+      });
+    }
   }
 
   /**
@@ -1015,19 +1028,33 @@ export default class CPRActor extends Actor {
    * @returns {CPRRoll}
    */
   createRoll(type, name) {
+    let cprRoll;
     switch (type) {
       case CPRRolls.rollTypes.STAT: {
-        return this._createStatRoll(name);
+        cprRoll = this._createStatRoll(name);
+        break;
       }
       case CPRRolls.rollTypes.DEATHSAVE: {
-        return this._createDeathSaveRoll();
+        cprRoll = this._createDeathSaveRoll();
+        break;
       }
       case CPRRolls.rollTypes.FACEDOWN: {
-        return this._createFacedownRoll();
+        cprRoll = this._createFacedownRoll();
+        break;
       }
       default:
+        return undefined;
     }
-    return undefined;
+    // Vebjorn Modules: decorate with actor/rollType so cpr-rollComplete fires
+    // with full context. Non-enumerable to avoid CPR roll-dialog mergeObject
+    // breakage (per the Diwako-additions lessons in the SKILL).
+    if (cprRoll) {
+      try {
+        Object.defineProperty(cprRoll, "actor", { value: this, configurable: true, enumerable: false, writable: true });
+        Object.defineProperty(cprRoll, "rollType", { value: type, configurable: true, enumerable: false, writable: true });
+      } catch (_e) { /* sealed objects: skip */ }
+    }
+    return cprRoll;
   }
 
   /**
@@ -1358,6 +1385,18 @@ export default class CPRActor extends Actor {
       await this.update({
         "system.derivedStats.hp.value": currentHp - takenDamage,
       });
+      // Vebjørn Modules: emit cpr-damageApplied (brain damage path)
+      Hooks.callAll("cpr-damageApplied", {
+        actor: this,
+        damage,
+        bonusDamage,
+        takenDamage,
+        totalDamageDealt,
+        location,
+        ammoVariety,
+        damageLethal,
+        rawDamageDealt: 0,
+      });
       CPRChat.RenderDamageApplicationCard({
         actor: this,
         damage,
@@ -1460,6 +1499,18 @@ export default class CPRActor extends Actor {
       await this.update({
         "system.derivedStats.hp.value": currentHp - takenDamage,
       });
+      // Vebjørn Modules: emit cpr-damageApplied (armor-blocked, only bonus damage applied)
+      Hooks.callAll("cpr-damageApplied", {
+        actor: this,
+        damage,
+        bonusDamage,
+        takenDamage,
+        totalDamageDealt,
+        location,
+        ammoVariety,
+        damageLethal,
+        rawDamageDealt,
+      });
       CPRChat.RenderDamageApplicationCard({
         actor: this,
         damage,
@@ -1507,6 +1558,18 @@ export default class CPRActor extends Actor {
 
     await this.update({
       "system.derivedStats.hp.value": currentHp - takenDamage,
+    });
+    // Vebjørn Modules: emit cpr-damageApplied (penetrating-damage main path)
+    Hooks.callAll("cpr-damageApplied", {
+      actor: this,
+      damage,
+      bonusDamage,
+      takenDamage,
+      totalDamageDealt,
+      location,
+      ammoVariety,
+      damageLethal,
+      rawDamageDealt,
     });
 
     // Ablate the armor correctly if there's armor equipped
